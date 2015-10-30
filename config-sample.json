@@ -1,0 +1,61 @@
+{
+  "log_level": "DEBUG",
+  "username": "username",
+  "password": "password",
+  "cloudformation_config": {
+    "region": "us-east-1",
+    "cloudformation_prefix": "cf",
+    "allow_user_provision_parameters": true,
+    "allow_user_update_parameters": true,
+    "catalog": {
+      "services": [
+        {
+          "id": "91a53118-16fd-4865-b273-0257dbea0fe8",
+          "name": "s3",
+          "description": "Amazon Simple Storage Service (S3)",
+          "bindable": true,
+          "tags": [
+            "s3"
+          ],
+          "metadata": {
+            "displayName": "AWS S3",
+            "imageUrl": "data:image/jpeg;base64,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",
+            "longDescription": "Amazon Simple Storage Service (S3)",
+            "providerDisplayName": "Amazon Web Services",
+            "documentationUrl": "https://aws.amazon.com/documentation/s3/",
+            "supportUrl": "https://forums.aws.amazon.com/forum.jspa?forumID=24"
+          },
+          "plan_updateable": true,
+          "plans": [
+            {
+              "id": "fa5b59d8-e137-48b8-b696-6100d9cea722",
+              "name": "bucket",
+              "description": "Amazon S3 Bucket",
+              "metadata": {
+                "costs": [
+                  {
+                    "amount": {
+                      "usd": 0.03
+                    },
+                    "unit": "Gigabyte"
+                  }
+                ],
+                "bullets": [
+                  "Dedicated AWS S3 bucket",
+                  "AWS S3"
+                ]
+              },
+              "free": false,
+              "cloudformation_properties": {
+                "capabilities": ["CAPABILITY_IAM"],
+                "on_failure": "ROLLBACK",
+                "template_url": "https://s3.amazonaws.com/aws-cloudformation-service-broker/sample-s3-cftemplate.json",
+                "timeout_in_minutes": 10
+              }
+            }
+          ]
+        }
+      ]
+    }
+  }
+}

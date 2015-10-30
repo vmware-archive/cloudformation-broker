@@ -1,0 +1,13 @@
+FROM scratch
+MAINTAINER Ferran Rodenas <frodenas@gmail.com>
+
+# Add files
+ADD cloudformation-broker /cloudformation-broker
+ADD config.json /config.json
+
+# Command to run
+ENTRYPOINT ["/cloudformation-broker"]
+CMD ["--config=/config.json"]
+
+# Expose listen ports
+EXPOSE 3000

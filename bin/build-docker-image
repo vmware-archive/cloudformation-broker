@@ -1,0 +1,24 @@
+#!/bin/bash
+
+set -e
+
+echo -e "\n Cleaning CloudFormation Service Broker Docker image..."
+docker rmi cfplatformeng/cloudformation-broker || true
+
+echo -e "\n Cleaning Builder Docker image..."
+docker rmi cfplatformeng/cloudformation-broker-builder || true
+
+echo -e "\n Creating Builder Docker image..."
+docker build -t cfplatformeng/cloudformation-broker-builder .
+
+echo -e "\n Creating CloudFormation Service Broker Docker image..."
+docker run -ti --rm --name cloudformation-broker-builder \
+       -e DOCKER_HOST=${DOCKER_HOST} \
+       -e DOCKER_TLS_VERIFY=${DOCKER_TLS_VERIFY} \
+       -e DOCKER_CERT_PATH=${DOCKER_CERT_PATH} \
+       -v ${DOCKER_CERT_PATH}:${DOCKER_CERT_PATH} \
+       -v $(which docker):$(which docker) \
+       cfplatformeng/cloudformation-broker-builder
+
+echo -e "\n Cleaning Builder Docker image..."
+docker rmi cfplatformeng/cloudformation-broker-builder

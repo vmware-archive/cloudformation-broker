@@ -1,0 +1,63 @@
+{
+  "AWSTemplateFormatVersion": "2010-09-09",
+  "Description": "Sample AWS CloudFormation Template for the AWS CloudFormation Service Broker",
+  "Parameters": {
+    "AccessControl": {
+      "Type": "String",
+      "Description": "Default permissions for the bucket",
+      "AllowedValues": [ "Private", "PublicRead", "PublicReadWrite", "AuthenticatedRead", "LogDeliveryWrite", "BucketOwnerRead", "BucketOwnerFullControl" ],
+      "Default": "Private"
+    }
+  },
+  "Resources": {
+    "IAMUser": {
+      "Type": "AWS::IAM::User"
+    },
+    "IAMAcessKey": {
+      "Type": "AWS::IAM::AccessKey",
+      "Properties": { "UserName": { "Ref": "IAMUser" } }
+    },
+    "S3Bucket" : {
+      "Type": "AWS::S3::Bucket",
+      "Properties": { "AccessControl": { "Ref": "AccessControl" } }
+    },
+    "IAMPolicy": {
+      "Type": "AWS::IAM::Policy",
+      "Properties": {
+        "PolicyName": "S3BucketPermissions",
+        "PolicyDocument" : {
+          "Version": "2012-10-17",
+          "Statement": [
+            {
+              "Sid": "S3BucketPermissions",
+              "Effect": "Allow",
+              "Action": ["s3:*"],
+              "Resource": [
+                { "Fn::Join": [ "", [ "arn:aws:s3:::", { "Ref": "S3Bucket" } ] ] },
+                { "Fn::Join": [ "", [ "arn:aws:s3:::", { "Ref": "S3Bucket" }, "/*" ] ] }
+              ]
+            }
+          ]
+        },
+        "Users": [ { "Ref": "IAMUser" } ]
+      }
+    }
+  },
+  "Outputs" : {
+    "Region": {
+      "Value": { "Ref": "AWS::Region" }
+    },
+    "Username": {
+      "Value": { "Ref": "IAMUser" }
+    },
+    "AWSAccessKeyId": {
+      "Value": { "Ref": "IAMAcessKey" }
+    },
+    "AWSSecretAccessKey": {
+      "Value": { "Fn::GetAtt": [ "IAMAcessKey", "SecretAccessKey" ] }
+    },
+    "BucketName": {
+      "Value": { "Ref": "S3Bucket" }
+    }
+  }
+}
