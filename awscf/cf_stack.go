@@ -10,18 +10,15 @@ import (
 )
 
 type CloudFormationStack struct {
-	region string
 	cfsvc  *cloudformation.CloudFormation
 	logger lager.Logger
 }
 
 func NewCloudFormationStack(
-	region string,
 	cfsvc *cloudformation.CloudFormation,
 	logger lager.Logger,
 ) *CloudFormationStack {
 	return &CloudFormationStack{
-		region: region,
 		cfsvc:  cfsvc,
 		logger: logger.Session("cloudformation-stack"),
 	}

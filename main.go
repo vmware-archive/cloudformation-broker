@@ -9,6 +9,7 @@ import (
 	"strings"
 
 	"github.com/aws/aws-sdk-go/aws"
+	"github.com/aws/aws-sdk-go/aws/session"
 	"github.com/aws/aws-sdk-go/service/cloudformation"
 	"github.com/frodenas/brokerapi"
 	"github.com/pivotal-golang/lager"
@@ -57,9 +58,10 @@ func main() {
 	logger := buildLogger(config.LogLevel)
 
 	awsConfig := aws.NewConfig().WithRegion(config.CloudFormationConfig.Region)
+	awsSession := session.New(awsConfig)
 
-	cfsvc := cloudformation.New(awsConfig)
-	stack := awscf.NewCloudFormationStack(config.CloudFormationConfig.Region, cfsvc, logger)
+	cfsvc := cloudformation.New(awsSession)
+	stack := awscf.NewCloudFormationStack(cfsvc, logger)
 
 	serviceBroker := cfbroker.New(config.CloudFormationConfig, stack, logger)
 

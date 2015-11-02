@@ -11,6 +11,7 @@ import (
 	"github.com/aws/aws-sdk-go/aws"
 	"github.com/aws/aws-sdk-go/aws/awserr"
 	"github.com/aws/aws-sdk-go/aws/request"
+	"github.com/aws/aws-sdk-go/aws/session"
 	"github.com/aws/aws-sdk-go/service/cloudformation"
 	"github.com/pivotal-golang/lager"
 	"github.com/pivotal-golang/lager/lagertest"
@@ -18,11 +19,11 @@ import (
 
 var _ = Describe("CloudFormation Stack", func() {
 	var (
-		region    string
 		stackName string
 
-		cfsvc  *cloudformation.CloudFormation
-		cfCall func(r *request.Request)
+		awsSession *session.Session
+		cfsvc      *cloudformation.CloudFormation
+		cfCall     func(r *request.Request)
 
 		testSink *lagertest.TestSink
 		logger   lager.Logger
@@ -31,18 +32,18 @@ var _ = Describe("CloudFormation Stack", func() {
 	)
 
 	BeforeEach(func() {
-		region = "cloudformation-region"
 		stackName = "cloudformation-stack"
 	})
 
 	JustBeforeEach(func() {
-		cfsvc = cloudformation.New(nil)
+		awsSession = session.New(nil)
+		cfsvc = cloudformation.New(awsSession)
 
 		logger = lager.NewLogger("cfstack_test")
 		testSink = lagertest.NewTestSink()
 		logger.RegisterSink(testSink)
 
-		stack = NewCloudFormationStack(region, cfsvc, logger)
+		stack = NewCloudFormationStack(cfsvc, logger)
 	})
 
 	var _ = Describe("Describe", func() {
