@@ -29,6 +29,7 @@ $ cd cloudformation-broker
 Modify the [included manifest file](https://github.com/cf-platform-eng/cloudformation-broker/blob/master/manifest.yml) to include your AWS credentials and the [sample configuration file](https://github.com/cf-platform-eng/cloudformation-broker/blob/master/config-sample.json) to add/update the AWS CloudFormation template URL. Then you can push the broker to your [Cloud Foundry](https://www.cloudfoundry.org/) environment:
 
 ```
+$ cp config-sample.json config.json
 $ cf push cloudformation-broker
 ```
 

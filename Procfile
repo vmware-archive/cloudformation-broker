@@ -1,1 +1,1 @@
-web: cloudformation-broker --config=config-sample.json -port=$PORT
+web: cloudformation-broker --config=config.json -port=$PORT
