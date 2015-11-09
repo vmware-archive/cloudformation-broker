@@ -1,0 +1,15 @@
+{
+  "Version": "2012-10-17",
+  "Statement": [
+    {
+      "Action": [
+        "cloudformation:DescribeStacks",
+        "cloudformation:CreateStack",
+        "cloudformation:UpdateStack",
+        "cloudformation:DeleteStack"
+      ],
+      "Effect": "Allow",
+      "Resource": "*"
+    }
+  ]
+}
