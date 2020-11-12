@@ -1,3 +1,5 @@
+# cloudformation-broker is no longer actively maintained by VMware.
+
 # AWS CloudFormation Service Broker [![Build Status](https://travis-ci.org/cf-platform-eng/cloudformation-broker.png)](https://travis-ci.org/cf-platform-eng/cloudformation-broker)
 
 This is an **experimental** [Cloud Foundry Service Broker](https://docs.cloudfoundry.org/services/overview.html) for [Amazon CloudFormation](https://aws.amazon.com/cloudformation/).
